@@ -1,137 +1,63 @@
 # React + TypeScript + Vite Project
 
-A modern, feature-rich React application built with TypeScript and Vite, offering exceptional developer experience and optimized performance.
+Modern React application with TypeScript and Vite for optimal developer experience and performance.
 
-## 🚀 Features
+## Features
 
-- **React 19** - Latest React version with improved rendering and hooks
-- **TypeScript** - Type safety and enhanced developer experience
-- **Vite** - Lightning-fast build tool with HMR (Hot Module Replacement)
-- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
-- **ESLint** - Code quality and consistency enforcement
-- **React Three Fiber** - 3D graphics capabilities with Three.js
-- **Framer Motion** - Advanced animations and transitions
-- **Recharts** - Responsive charting library
-- **DND Kit** - Drag and drop functionality
-- **Radix UI** - Accessible UI components
-- **Zod** - Runtime type validation
+- **React 19** with TypeScript
+- **Vite** for fast builds and HMR
+- **Tailwind CSS** for styling
+- **React Three Fiber** for 3D graphics
+- **Framer Motion** for animations
+- **Recharts** for data visualization
+- **DND Kit** for drag and drop
+- **Radix UI** components
+- **Zod** for validation
 
-## 📦 Installation
+## Quick Start
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-
-# Navigate to the project directory
-cd <project-directory>
-
 # Install dependencies
 npm install
 
-# Start the development server
+# Start development server
 npm run dev
 ```
 
-## 🛠️ Scripts
+## Available Scripts
 
-- `npm run dev` - Start the development server
-- `npm run build` - Build the project for production
-- `npm run lint` - Run ESLint to check code quality
-- `npm run preview` - Preview the production build locally
+- `npm run dev` - Development server
+- `npm run build` - Production build
+- `npm run lint` - Code linting
+- `npm run preview` - Preview build
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 /
 ├── public/             # Static assets
 ├── src/                # Source code
-│   ├── assets/         # Images, fonts, etc.
-│   ├── lib/            # Utility functions and helpers
-│   ├── types/          # TypeScript type definitions
-│   ├── App.tsx         # Main application component
-│   ├── main.tsx        # Application entry point
+│   ├── assets/         # Images, fonts
+│   ├── lib/            # Utilities
+│   ├── types/          # Type definitions
+│   ├── App.tsx         # Main component
+│   ├── main.tsx        # Entry point
 │   └── index.css       # Global styles
-├── index.html          # HTML entry point
-├── tsconfig.json       # TypeScript configuration
-├── vite.config.ts      # Vite configuration
-├── tailwind.config.cjs # Tailwind CSS configuration
-└── postcss.config.cjs  # PostCSS configuration
+├── index.html          # HTML entry
+└── config files        # TS, Vite, Tailwind configs
 ```
 
-## 🧩 Key Dependencies
+## Key Dependencies
 
-### Core
-- **React** (v19.0.0) - UI library
-- **React DOM** (v19.0.0) - React renderer for the DOM
-- **TypeScript** (v5.7.2) - Typed JavaScript
+- **Core**: React 19, TypeScript
+- **UI**: Tailwind CSS, Framer Motion, Lucide React, Radix UI
+- **Functionality**: React Hook Form, React Hot Toast, Recharts, DND Kit, Zod
+- **3D**: React Three Fiber, Drei
 
-### UI and Styling
-- **Tailwind CSS** (v3.3.5) - Utility-first CSS framework
-- **Framer Motion** (v12.4.7) - Animation library
-- **Lucide React** (v0.476.0) - Icon library
-- **Radix UI** - Headless UI components
-  - Dialog, Dropdown Menu, Tabs
+## Browser Support
 
-### Functionality
-- **React Hook Form** (v7.54.2) - Form handling
-- **React Hot Toast** (v2.5.2) - Toast notifications
-- **React Responsive** (v10.0.0) - Responsive design utilities
-- **Recharts** (v2.15.1) - Charting library
-- **DND Kit** (v6.3.1) - Drag and drop functionality
-- **Zod** (v3.24.2) - Schema validation
+All modern browsers (Chrome, Firefox, Safari, Edge)
 
-### 3D Graphics
-- **React Three Fiber** (v9.0.4) - React renderer for Three.js
-- **Drei** (v10.0.3) - Useful helpers for React Three Fiber
+## License
 
-## 🔧 Configuration
-
-### ESLint
-
-For production applications, enable type-aware lint rules by:
-
-1. Configure the top-level `parserOptions` property:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-2. Replace `tseslint.configs.recommended` with `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-3. Optionally add `...tseslint.configs.stylisticTypeChecked`
-
-### TypeScript
-
-The project uses a multi-tsconfig setup:
-- `tsconfig.json` - Base configuration
-- `tsconfig.app.json` - Application-specific configuration
-- `tsconfig.node.json` - Node.js specific configuration
-
-### Vite
-
-Vite is configured with the React plugin for optimal development experience. See `vite.config.ts` for details.
-
-## 🌐 Browser Support
-
-This project supports all modern browsers, including:
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## 📚 Learning Resources
-
-- [React Documentation](https://react.dev/)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Vite Documentation](https://vitejs.dev/guide/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License
