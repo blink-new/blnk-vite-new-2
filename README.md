@@ -1,20 +1,16 @@
-# React + TypeScript + Vite Project
+# React TypeScript Application
 
-Modern React application with TypeScript and Vite for optimal developer experience and performance.
+Modern React application built with TypeScript and Vite for optimal developer experience and performance.
 
-## Features
+## Technology Stack
 
-- **React 19** with TypeScript
-- **Vite** for fast builds and HMR
-- **Tailwind CSS** for styling
-- **React Three Fiber** for 3D graphics
-- **Framer Motion** for animations
-- **Recharts** for data visualization
-- **DND Kit** for drag and drop
-- **Radix UI** components
-- **Zod** for validation
+- **Frontend**: React 19, TypeScript, Tailwind CSS
+- **Build Tool**: Vite
+- **UI Components**: Radix UI, Framer Motion, Lucide React
+- **Data Handling**: React Hook Form, Zod
+- **Visualization**: Recharts, React Three Fiber
 
-## Quick Start
+## Getting Started
 
 ```bash
 # Install dependencies
@@ -24,12 +20,14 @@ npm install
 npm run dev
 ```
 
-## Available Scripts
+## Scripts
 
-- `npm run dev` - Development server
-- `npm run build` - Production build
-- `npm run lint` - Code linting
-- `npm run preview` - Preview build
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Create production build |
+| `npm run lint` | Run linter |
+| `npm run preview` | Preview production build |
 
 ## Project Structure
 
@@ -43,20 +41,12 @@ npm run dev
 │   ├── App.tsx         # Main component
 │   ├── main.tsx        # Entry point
 │   └── index.css       # Global styles
-├── index.html          # HTML entry
-└── config files        # TS, Vite, Tailwind configs
+└── config files        # Configuration files
 ```
-
-## Key Dependencies
-
-- **Core**: React 19, TypeScript
-- **UI**: Tailwind CSS, Framer Motion, Lucide React, Radix UI
-- **Functionality**: React Hook Form, React Hot Toast, Recharts, DND Kit, Zod
-- **3D**: React Three Fiber, Drei
 
 ## Browser Support
 
-All modern browsers (Chrome, Firefox, Safari, Edge)
+Optimized for modern browsers (Chrome, Firefox, Safari, Edge)
 
 ## License
 
