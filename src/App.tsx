@@ -16,6 +16,7 @@ function App() {
   const [isPaused, setIsPaused] = useState(false);
   const [simulationSpeed, setSimulationSpeed] = useState(1);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showSidebars, setShowSidebars] = useState(true);
   
   // Get the selected planet data
   const selectedPlanetData = selectedPlanet ? getPlanetById(selectedPlanet) : null;
@@ -23,35 +24,51 @@ function App() {
   // Handle planet selection
   const handleSelectPlanet = (planet: CelestialBodyData) => {
     setSelectedPlanet(planet.id);
+    // Ensure sidebars are visible when selecting a planet
+    setShowSidebars(true);
   };
   
   return (
     <div className="app-container h-screen flex flex-col bg-gray-900 text-white overflow-hidden">
       {/* Header */}
-      <header className="bg-gray-800 p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Interactive Solar System</h1>
-        <button 
-          onClick={() => setShowQuiz(!showQuiz)}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
-        >
-          {showQuiz ? 'Back to Solar System' : 'Take Quiz'}
-        </button>
+      <header className="bg-gray-800 p-4 flex justify-between items-center shadow-lg">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          Interactive Solar System
+        </h1>
+        <div className="flex gap-3">
+          <button 
+            onClick={() => setShowSidebars(!showSidebars)}
+            className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md transition-colors"
+          >
+            {showSidebars ? 'Expand View' : 'Show Details'}
+          </button>
+          <button 
+            onClick={() => setShowQuiz(!showQuiz)}
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
+          >
+            {showQuiz ? 'Back to Solar System' : 'Take Quiz'}
+          </button>
+        </div>
       </header>
       
       {/* Main content */}
-      <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
+      <main className="flex-1 flex overflow-hidden">
         {showQuiz ? (
-          <SolarSystemQuiz />
+          <div className="w-full p-6">
+            <SolarSystemQuiz />
+          </div>
         ) : (
           <>
             {/* Left sidebar - Planet menu */}
-            <div className="w-full md:w-64 bg-gray-800 p-4 overflow-y-auto">
-              <PlanetMenu 
-                planets={solarSystemData} 
-                selectedPlanet={selectedPlanet}
-                onSelectPlanet={handleSelectPlanet}
-              />
-            </div>
+            {showSidebars && (
+              <div className="w-72 bg-gray-800 p-5 overflow-y-auto transition-all duration-300 ease-in-out shadow-xl">
+                <PlanetMenu 
+                  planets={solarSystemData} 
+                  selectedPlanet={selectedPlanet}
+                  onSelectPlanet={handleSelectPlanet}
+                />
+              </div>
+            )}
             
             {/* Center - 3D Solar System */}
             <div className="flex-1 relative">
@@ -65,23 +82,25 @@ function App() {
               />
               
               {/* Controls overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <ControlPanel 
-                  showOrbits={showOrbits}
-                  setShowOrbits={setShowOrbits}
-                  isRealisticScale={isRealisticScale}
-                  setIsRealisticScale={setIsRealisticScale}
-                  isPaused={isPaused}
-                  setIsPaused={setIsPaused}
-                  simulationSpeed={simulationSpeed}
-                  setSimulationSpeed={setSimulationSpeed}
-                />
+              <div className="absolute bottom-0 left-0 right-0 p-6 flex justify-center">
+                <div className="bg-gray-800 bg-opacity-80 backdrop-blur-sm rounded-lg shadow-xl">
+                  <ControlPanel 
+                    showOrbits={showOrbits}
+                    setShowOrbits={setShowOrbits}
+                    isRealisticScale={isRealisticScale}
+                    setIsRealisticScale={setIsRealisticScale}
+                    isPaused={isPaused}
+                    setIsPaused={setIsPaused}
+                    simulationSpeed={simulationSpeed}
+                    setSimulationSpeed={setSimulationSpeed}
+                  />
+                </div>
               </div>
             </div>
             
             {/* Right sidebar - Planet details */}
-            {selectedPlanetData && (
-              <div className="w-full md:w-80 bg-gray-800 p-4 overflow-y-auto">
+            {showSidebars && selectedPlanetData && (
+              <div className="w-96 bg-gray-800 p-5 overflow-y-auto transition-all duration-300 ease-in-out shadow-xl">
                 <PlanetDetail planet={selectedPlanetData} />
               </div>
             )}
