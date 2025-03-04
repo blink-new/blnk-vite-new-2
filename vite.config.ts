@@ -8,7 +8,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    strictPort: true,
+    strictPort: false, // Changed from true to false to allow fallback ports
     host: true,
     cors: true,
     headers: {
@@ -21,10 +21,9 @@ export default defineConfig({
       // Fix for WebSocket connection issues
       protocol: 'ws',
       host: 'localhost',
-      port: 3000,
-      clientPort: 3000
+      // Remove clientPort to let Vite handle it automatically
     },
-    allowedHosts: ['.blink.new']
+    allowedHosts: ['localhost', '.blink.new']
   },
   preview: {
     port: 3000,

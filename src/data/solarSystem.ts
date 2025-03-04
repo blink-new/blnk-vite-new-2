@@ -6,258 +6,199 @@ export const solarSystemData: CelestialBodyData[] = [
     name: 'Sun',
     type: 'star',
     diameter: 1392700,
-    mass: 1.989e30,
-    temperature: 5500,
+    mass: 1989000000000000000000000000000,
+    distanceFromSun: 0,
+    orbitalPeriod: 0,
+    rotationPeriod: 609.12,
+    temperature: 5778,
     color: '#FDB813',
     texture: '/textures/planets/sun.jpg',
     description: 'The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core. The Sun radiates energy mainly as light, ultraviolet, and infrared radiation, and is the most important source of energy for life on Earth.',
     funFacts: [
       'The Sun accounts for 99.86% of the mass in the solar system.',
-      'The Sun is 109 times wider than the Earth and 330,000 times as massive.',
-      'The Sun\'s core can reach 15 million degrees Celsius.',
-      'Light from the Sun takes eight minutes to reach Earth.'
-    ],
-    position: 0
+      'The Sun has a surface temperature of about 5,778 K (5,505°C, 9,941°F).',
+      'Light from the Sun takes about 8 minutes to reach Earth.',
+      'The Sun is classified as a G-type main-sequence star, or G dwarf star, or more informally, a yellow dwarf.'
+    ]
   },
   {
     id: 'mercury',
     name: 'Mercury',
     type: 'planet',
     diameter: 4879,
-    mass: 3.3011e23,
-    gravity: 3.7,
+    mass: 330110000000000000000000,
     distanceFromSun: 57.9,
     orbitalPeriod: 88,
-    rotationPeriod: 1408,
+    rotationPeriod: 1407.6,
     temperature: 167,
-    atmosphere: ['Minimal - Traces of Oxygen, Sodium, Hydrogen, Helium'],
-    moons: 0,
-    rings: false,
-    color: '#A9A9A9',
+    color: '#A5A5A5',
     texture: '/textures/planets/mercury.jpg',
-    description: 'Mercury is the smallest and innermost planet in the Solar System. It has a rocky body like Earth and is the closest planet to the Sun. Mercury has no atmosphere to retain heat, resulting in extreme temperature variations, from scorching hot during the day to freezing cold at night.',
+    description: 'Mercury is the smallest and innermost planet in the Solar System. Its orbit around the Sun takes 87.97 Earth days, the shortest of all the planets in the Solar System. It is named after the Roman deity Mercury, the messenger of the gods.',
     funFacts: [
       'Mercury has no atmosphere, which means there is no wind or weather.',
-      'Despite being the closest planet to the Sun, Venus is actually hotter than Mercury.',
-      'A day on Mercury (sunrise to sunrise) lasts 176 Earth days.',
-      'Mercury has a very eccentric orbit, meaning it\'s not perfectly circular.'
-    ],
-    position: 1
+      'Mercury has a large iron core, which generates a magnetic field about 1% as strong as that of Earth.',
+      'Despite being the closest planet to the Sun, Mercury is not the hottest planet; Venus is hotter due to its dense atmosphere.',
+      'A day on Mercury (from sunrise to sunrise) lasts 176 Earth days.'
+    ]
   },
   {
     id: 'venus',
     name: 'Venus',
     type: 'planet',
     diameter: 12104,
-    mass: 4.8675e24,
-    gravity: 8.87,
+    mass: 4867500000000000000000000,
     distanceFromSun: 108.2,
     orbitalPeriod: 224.7,
-    rotationPeriod: -5832,
+    rotationPeriod: -5832.5,
     temperature: 464,
-    atmosphere: ['Carbon Dioxide', 'Nitrogen', 'Sulfur Dioxide'],
-    moons: 0,
-    rings: false,
-    color: '#E6E6FA',
+    color: '#E6C229',
     texture: '/textures/planets/venus.jpg',
-    description: 'Venus is the second planet from the Sun and is Earth\'s closest planetary neighbor. It\'s one of the four inner, terrestrial planets, and it\'s often called Earth\'s twin because it\'s similar in size and density. Venus has a thick, toxic atmosphere filled with carbon dioxide and clouds of sulfuric acid.',
+    description: 'Venus is the second planet from the Sun. It is named after the Roman goddess of love and beauty. As the second-brightest natural object in the night sky after the Moon, Venus can cast shadows and can be, on rare occasion, visible to the naked eye in broad daylight.',
     funFacts: [
-      'Venus rotates backward compared to other planets.',
-      'A day on Venus is longer than a year on Venus.',
-      'Venus is the hottest planet in our solar system due to its thick atmosphere.',
-      'The atmospheric pressure on Venus is 92 times greater than Earth\'s.'
-    ],
-    position: 2
+      'Venus rotates in the opposite direction to most planets, meaning the Sun rises in the west and sets in the east.',
+      'Venus has the longest rotation period (243 Earth days) of any planet in the Solar System.',
+      'Venus has the most circular orbit of any planet, with an eccentricity of less than 1%.',
+      'Venus has a thick atmosphere consisting mainly of carbon dioxide, which traps heat in a runaway greenhouse effect.'
+    ]
   },
   {
     id: 'earth',
     name: 'Earth',
     type: 'planet',
     diameter: 12756,
-    mass: 5.97237e24,
-    gravity: 9.8,
+    mass: 5972200000000000000000000,
     distanceFromSun: 149.6,
     orbitalPeriod: 365.2,
-    rotationPeriod: 24,
+    rotationPeriod: 23.9,
     temperature: 15,
-    atmosphere: ['Nitrogen', 'Oxygen', 'Argon', 'Carbon Dioxide'],
-    moons: 1,
-    rings: false,
-    color: '#0077FF',
+    color: '#1F7CDA',
     texture: '/textures/planets/earth.jpg',
-    description: 'Earth is the third planet from the Sun and the only astronomical object known to harbor life. About 71% of Earth\'s surface is covered with water. Earth\'s atmosphere consists of 78% nitrogen, 21% oxygen, and 1% other gases which is perfect for supporting life.',
+    description: 'Earth is the third planet from the Sun and the only astronomical object known to harbor life. According to radiometric dating and other sources of evidence, Earth formed over 4.5 billion years ago.',
     funFacts: [
       'Earth is the only planet not named after a god.',
       'Earth is the densest planet in the Solar System.',
-      'The Earth\'s rotation is gradually slowing down.',
-      'Earth has a powerful magnetic field that protects us from solar radiation.'
-    ],
-    position: 3
+      'Earth has a powerful magnetic field created by the nickel-iron core that deflects destructive solar winds.',
+      '71% of Earth\'s surface is covered in water.'
+    ]
   },
   {
     id: 'mars',
     name: 'Mars',
     type: 'planet',
     diameter: 6792,
-    mass: 6.4171e23,
-    gravity: 3.71,
+    mass: 641710000000000000000000,
     distanceFromSun: 227.9,
     orbitalPeriod: 687,
-    rotationPeriod: 24.7,
+    rotationPeriod: 24.6,
     temperature: -65,
-    atmosphere: ['Carbon Dioxide', 'Nitrogen', 'Argon'],
-    moons: 2,
-    rings: false,
-    color: '#FF5733',
+    color: '#E27B58',
     texture: '/textures/planets/mars.jpg',
-    description: 'Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System, being larger than only Mercury. Mars is often called the "Red Planet" because of its reddish appearance, which is due to iron oxide (rust) on its surface.',
+    description: 'Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System after Mercury. In English, Mars carries a name of the Roman god of war and is often referred to as the "Red Planet".',
     funFacts: [
-      'Mars has the largest dust storms in the solar system.',
-      'Mars has two moons named Phobos and Deimos.',
-      'Mars has the tallest mountain in the solar system - Olympus Mons.',
-      'A year on Mars is almost twice as long as a year on Earth.'
-    ],
-    position: 4
+      'Mars has the largest dust storms in the solar system, which can last for months and cover the entire planet.',
+      'Mars has two moons, Phobos and Deimos, which may be captured asteroids.',
+      'Mars has the tallest mountain in the solar system, Olympus Mons, which is 21 km high and 600 km in diameter.',
+      'Mars has a thin atmosphere made mostly of carbon dioxide.'
+    ]
   },
   {
     id: 'jupiter',
     name: 'Jupiter',
     type: 'planet',
     diameter: 142984,
-    mass: 1.8982e27,
-    gravity: 24.79,
+    mass: 1898200000000000000000000000,
     distanceFromSun: 778.6,
     orbitalPeriod: 4331,
     rotationPeriod: 9.9,
     temperature: -110,
-    atmosphere: ['Hydrogen', 'Helium', 'Methane', 'Ammonia'],
-    moons: 79,
-    rings: true,
-    color: '#F5DEB3',
+    color: '#C88B3A',
     texture: '/textures/planets/jupiter.jpg',
-    description: 'Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, but slightly less than one-thousandth the mass of the Sun.',
+    description: 'Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass one-thousandth that of the Sun, but two-and-a-half times that of all the other planets in the Solar System combined.',
     funFacts: [
-      'Jupiter has the shortest day of all the planets, rotating once every 9.8 hours.',
-      'The Great Red Spot on Jupiter is a storm that has been raging for at least 400 years.',
-      'Jupiter has the strongest magnetic field of any planet.',
-      'If Jupiter were hollow, more than 1,300 Earths could fit inside it.'
-    ],
-    position: 5
+      'Jupiter has the shortest day of all the planets, rotating once every 9.9 hours.',
+      'Jupiter has a Great Red Spot, which is a giant storm that has been raging for at least 400 years.',
+      'Jupiter has 79 known moons, the most of any planet in the Solar System.',
+      'Jupiter\'s magnetic field is 14 times stronger than Earth\'s.'
+    ]
   },
   {
     id: 'saturn',
     name: 'Saturn',
     type: 'planet',
     diameter: 120536,
-    mass: 5.6834e26,
-    gravity: 10.44,
+    mass: 568340000000000000000000000,
     distanceFromSun: 1433.5,
     orbitalPeriod: 10747,
     rotationPeriod: 10.7,
     temperature: -140,
-    atmosphere: ['Hydrogen', 'Helium', 'Methane'],
-    moons: 82,
-    rings: true,
-    color: '#F4A460',
+    color: '#E4CD7B',
     texture: '/textures/planets/saturn.jpg',
-    description: 'Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine times that of Earth. Saturn is known for its prominent ring system, which is composed mainly of ice particles, with a smaller amount of rocky debris and dust.',
+    description: 'Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius about nine times that of Earth. It has only one-eighth the average density of Earth; however, with its larger volume, Saturn is over 95 times more massive.',
     funFacts: [
-      'Saturn\'s rings are made up of billions of ice particles, ranging in size from tiny dust grains to large boulders.',
-      'Saturn has 82 moons with confirmed orbits, more than any other planet in our solar system.',
-      'Saturn is the least dense planet in our solar system - it would float in water if there were an ocean large enough.',
-      'A day on Saturn is only 10.7 hours long.'
-    ],
-    position: 6
+      'Saturn has the most extensive ring system of any planet in the Solar System.',
+      'Saturn is the least dense planet in the Solar System and would float in water if there were an ocean large enough.',
+      'Saturn has 82 known moons, second only to Jupiter.',
+      'Saturn\'s moon Titan is the second-largest moon in the Solar System and has a thick atmosphere.'
+    ]
   },
   {
     id: 'uranus',
     name: 'Uranus',
     type: 'planet',
     diameter: 51118,
-    mass: 8.6810e25,
-    gravity: 8.69,
+    mass: 86810000000000000000000000,
     distanceFromSun: 2872.5,
     orbitalPeriod: 30589,
     rotationPeriod: -17.2,
     temperature: -195,
-    atmosphere: ['Hydrogen', 'Helium', 'Methane'],
-    moons: 27,
-    rings: true,
-    color: '#ADD8E6',
+    color: '#93C1C9',
     texture: '/textures/planets/uranus.jpg',
     description: 'Uranus is the seventh planet from the Sun. It has the third-largest planetary radius and fourth-largest planetary mass in the Solar System. Uranus is similar in composition to Neptune, and both have bulk chemical compositions which differ from that of the larger gas giants Jupiter and Saturn.',
     funFacts: [
-      'Uranus rotates on its side, with its axis pointing nearly towards the Sun.',
-      'Uranus was the first planet discovered using a telescope.',
-      'Uranus has 13 known rings, which are very faint compared to Saturn\'s.',
-      'The atmosphere of Uranus contains "ice" in the form of water, ammonia, and methane, giving it a blue-green color.'
-    ],
-    position: 7
+      'Uranus rotates on its side, with an axial tilt of 98 degrees.',
+      'Uranus was the first planet discovered with a telescope, by William Herschel in 1781.',
+      'Uranus has 27 known moons, all named after characters from the works of William Shakespeare and Alexander Pope.',
+      'Uranus has 13 known rings, which are dark and narrow compared to Saturn\'s.'
+    ]
   },
   {
     id: 'neptune',
     name: 'Neptune',
     type: 'planet',
     diameter: 49528,
-    mass: 1.02413e26,
-    gravity: 11.15,
+    mass: 102413000000000000000000000,
     distanceFromSun: 4495.1,
     orbitalPeriod: 59800,
     rotationPeriod: 16.1,
     temperature: -200,
-    atmosphere: ['Hydrogen', 'Helium', 'Methane'],
-    moons: 14,
-    rings: true,
-    color: '#4169E1',
+    color: '#3E66F9',
     texture: '/textures/planets/neptune.jpg',
-    description: 'Neptune is the eighth and farthest-known Solar planet from the Sun. In the Solar System, it is the fourth-largest planet by diameter, the third-most-massive planet, and the densest giant planet. Neptune is 17 times the mass of Earth, slightly more massive than its near-twin Uranus.',
+    description: 'Neptune is the eighth and farthest known planet from the Sun in the Solar System. In the Solar System, it is the fourth-largest planet by diameter, the third-most-massive planet, and the densest giant planet.',
     funFacts: [
+      'Neptune was the first planet to be predicted mathematically before it was actually observed.',
       'Neptune has the strongest winds in the Solar System, reaching speeds of 2,100 km/h (1,300 mph).',
-      'Neptune takes 165 Earth years to orbit the Sun.',
-      'Neptune was predicted to exist through mathematical calculations before it was actually discovered.',
-      'Neptune has a Great Dark Spot, similar to Jupiter\'s Great Red Spot, which is a storm system.'
-    ],
-    position: 8
+      'Neptune has 14 known moons, the largest of which is Triton.',
+      'Neptune has 5 main rings and 4 prominent ring arcs.'
+    ]
   },
   {
     id: 'pluto',
     name: 'Pluto',
-    type: 'dwarf-planet',
+    type: 'dwarf planet',
     diameter: 2376,
-    mass: 1.303e22,
-    gravity: 0.62,
+    mass: 13030000000000000000000,
     distanceFromSun: 5906.4,
     orbitalPeriod: 90560,
     rotationPeriod: -153.3,
     temperature: -225,
-    atmosphere: ['Nitrogen', 'Methane', 'Carbon Monoxide'],
-    moons: 5,
-    rings: false,
-    color: '#DEB887',
+    color: '#A68A7B',
     texture: '/textures/planets/pluto.jpg',
-    description: 'Pluto is a dwarf planet in the Kuiper belt, a ring of bodies beyond the orbit of Neptune. It was the first and the largest Kuiper belt object to be discovered. After Pluto was discovered in 1930, it was declared to be the ninth planet from the Sun. Beginning in the 1990s, its status as a planet was questioned, and in 2006 it was reclassified as a dwarf planet.',
+    description: 'Pluto is a dwarf planet in the Kuiper belt, a ring of bodies beyond the orbit of Neptune. It was the first Kuiper belt object to be discovered and is the largest known dwarf planet. Pluto was discovered by Clyde Tombaugh in 1930 and was originally considered to be the ninth planet from the Sun.',
     funFacts: [
-      'Pluto was considered the ninth planet until 2006 when it was reclassified as a dwarf planet.',
-      'Pluto is smaller than Earth\'s moon.',
-      'Pluto has a heart-shaped glacier that\'s the size of Texas and Oklahoma combined.',
-      'Pluto takes 248 Earth years to complete one orbit around the Sun.'
-    ],
-    position: 9
+      'Pluto was reclassified from a planet to a dwarf planet in 2006.',
+      'Pluto has five known moons: Charon, Nix, Hydra, Kerberos, and Styx.',
+      'Pluto\'s orbit is highly eccentric and inclined, crossing Neptune\'s orbit.',
+      'Pluto has a heart-shaped glacier on its surface, called Tombaugh Regio.'
+    ]
   }
 ];
-
-export const getPlanetById = (id: string): CelestialBodyData | undefined => {
-  return solarSystemData.find(planet => planet.id === id);
-};
-
-export const getPlanetByName = (name: string): CelestialBodyData | undefined => {
-  return solarSystemData.find(planet => planet.name.toLowerCase() === name.toLowerCase());
-};
-
-export const getPlanets = (): CelestialBodyData[] => {
-  return solarSystemData.filter(body => body.type === 'planet' || body.type === 'dwarf-planet');
-};
-
-export const getStar = (): CelestialBodyData | undefined => {
-  return solarSystemData.find(body => body.type === 'star');
-};

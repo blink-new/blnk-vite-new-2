@@ -17,7 +17,7 @@ const LoadingFallback = () => {
   );
 };
 
-// Safe texture component that falls back to color if texture fails
+// Simplified material component that doesn't use useTexture hook directly
 const SafeTextureMaterial = ({ 
   textureUrl, 
   color, 
@@ -31,40 +31,121 @@ const SafeTextureMaterial = ({
   emissiveIntensity?: number;
   isBasicMaterial?: boolean;
 }) => {
-  const [error, setError] = useState(false);
-  
-  // Use a try-catch block with useTexture
-  let texture = null;
-  if (textureUrl && !error) {
-    try {
-      // Use a more reliable way to load textures
-      const textures = useTexture({ map: textureUrl }, (errors) => {
-        if (errors && Object.keys(errors).length > 0) {
-          console.warn(`Failed to load texture: ${textureUrl}`, errors);
-          setError(true);
-        }
-      });
-      texture = textures.map;
-    } catch (err) {
-      console.warn(`Error in texture loading: ${textureUrl}`, err);
-      setError(true);
+  // Don't use hooks conditionally - this was causing the error
+  if (isBasicMaterial) {
+    return (
+      <meshBasicMaterial 
+        color={color} 
+        emissive={emissive} 
+        emissiveIntensity={emissiveIntensity || 0}
+      />
+    );
+  } else {
+    return (
+      <meshStandardMaterial 
+        color={color} 
+        emissive={emissive} 
+        emissiveIntensity={emissiveIntensity || 0}
+      />
+    );
+  }
+};
+
+// Separate texture loader component
+const TexturedMaterial = ({ 
+  textureUrl, 
+  color, 
+  emissive, 
+  emissiveIntensity,
+  isBasicMaterial = false
+}: { 
+  textureUrl: string; 
+  color: string; 
+  emissive?: string;
+  emissiveIntensity?: number;
+  isBasicMaterial?: boolean;
+}) => {
+  try {
+    // Fix texture path by ensuring it starts with a slash
+    const fixedTextureUrl = textureUrl.startsWith('/') ? textureUrl : `/${textureUrl}`;
+    // Load texture safely
+    const texture = useTexture(fixedTextureUrl);
+    
+    if (isBasicMaterial) {
+      return (
+        <meshBasicMaterial 
+          color={color} 
+          map={texture} 
+          emissive={emissive} 
+          emissiveIntensity={emissiveIntensity || 0}
+        />
+      );
+    } else {
+      return (
+        <meshStandardMaterial 
+          color={color} 
+          map={texture} 
+          emissive={emissive} 
+          emissiveIntensity={emissiveIntensity || 0}
+        />
+      );
     }
+  } catch (error) {
+    console.error(`Error loading texture: ${textureUrl}`, error);
+    // Fallback to non-textured material
+    return (
+      <SafeTextureMaterial 
+        color={color}
+        emissive={emissive}
+        emissiveIntensity={emissiveIntensity}
+        isBasicMaterial={isBasicMaterial}
+      />
+    );
+  }
+};
+
+// Material with error handling
+const MaterialWithFallback = ({ 
+  textureUrl, 
+  color, 
+  emissive, 
+  emissiveIntensity,
+  isBasicMaterial = false
+}: { 
+  textureUrl?: string; 
+  color: string; 
+  emissive?: string;
+  emissiveIntensity?: number;
+  isBasicMaterial?: boolean;
+}) => {
+  if (!textureUrl) {
+    return (
+      <SafeTextureMaterial 
+        color={color}
+        emissive={emissive}
+        emissiveIntensity={emissiveIntensity}
+        isBasicMaterial={isBasicMaterial}
+      />
+    );
   }
   
-  return isBasicMaterial ? (
-    <meshBasicMaterial 
-      color={color} 
-      map={texture} 
-      emissive={emissive} 
-      emissiveIntensity={emissiveIntensity || 0}
-    />
-  ) : (
-    <meshStandardMaterial 
-      color={texture ? undefined : color} 
-      map={texture} 
-      emissive={emissive} 
-      emissiveIntensity={emissiveIntensity || 0}
-    />
+  return (
+    <Suspense fallback={
+      <SafeTextureMaterial 
+        color={color}
+        emissive={emissive}
+        emissiveIntensity={emissiveIntensity}
+        isBasicMaterial={isBasicMaterial}
+      />
+    }>
+      <TexturedMaterial 
+        textureUrl={textureUrl}
+        color={color}
+        emissive={emissive}
+        emissiveIntensity={emissiveIntensity}
+        isBasicMaterial={isBasicMaterial}
+      />
+    </Suspense>
   );
 };
 
@@ -160,14 +241,12 @@ const Planet = ({
         onPointerOut={() => setHovered(false)}
       >
         <sphereGeometry args={[1, 32, 32]} />
-        <Suspense fallback={<meshStandardMaterial color={planet.color} />}>
-          <SafeTextureMaterial 
-            textureUrl={planet.texture} 
-            color={planet.color}
-            emissive={hovered || isSelected ? planet.color : undefined}
-            emissiveIntensity={hovered ? 0.5 : isSelected ? 0.3 : 0}
-          />
-        </Suspense>
+        <MaterialWithFallback 
+          textureUrl={planet.texture} 
+          color={planet.color}
+          emissive={hovered || isSelected ? planet.color : undefined}
+          emissiveIntensity={hovered ? 0.5 : isSelected ? 0.3 : 0}
+        />
       </mesh>
       
       {/* Planet label */}
@@ -204,15 +283,13 @@ const Sun = ({ scale }: { scale: number }) => {
       {/* Sun surface */}
       <mesh ref={meshRef} scale={[scale, scale, scale]}>
         <sphereGeometry args={[1, 32, 32]} />
-        <Suspense fallback={<meshBasicMaterial color={sunData.color} emissive={sunData.color} emissiveIntensity={1} />}>
-          <SafeTextureMaterial 
-            textureUrl={sunData.texture} 
-            color={sunData.color}
-            emissive={sunData.color}
-            emissiveIntensity={1}
-            isBasicMaterial={true}
-          />
-        </Suspense>
+        <MaterialWithFallback 
+          textureUrl={sunData.texture} 
+          color={sunData.color}
+          emissive={sunData.color}
+          emissiveIntensity={1}
+          isBasicMaterial={true}
+        />
       </mesh>
     </group>
   );
