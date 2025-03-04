@@ -1,10 +1,63 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Stars, useTexture, Html as DreiHtml } from '@react-three/drei';
-import { Vector3 } from 'three';
+import { Vector3, TextureLoader, MeshStandardMaterial, MeshBasicMaterial } from 'three';
 import { motion } from 'framer-motion';
 import { solarSystemData } from '../data/solarSystem';
 import { CelestialBodyData } from '../types/solarSystem';
+
+// Fallback component to show while loading
+const LoadingFallback = () => {
+  return (
+    <DreiHtml center>
+      <div className="bg-black bg-opacity-70 text-white px-4 py-2 rounded">
+        Loading planet...
+      </div>
+    </DreiHtml>
+  );
+};
+
+// Safe texture component that falls back to color if texture fails
+const SafeTextureMaterial = ({ 
+  textureUrl, 
+  color, 
+  emissive, 
+  emissiveIntensity,
+  isBasicMaterial = false
+}: { 
+  textureUrl?: string; 
+  color: string; 
+  emissive?: string;
+  emissiveIntensity?: number;
+  isBasicMaterial?: boolean;
+}) => {
+  const [error, setError] = useState(false);
+  
+  let texture;
+  try {
+    texture = textureUrl && !error ? useTexture(textureUrl) : null;
+  } catch (err) {
+    console.warn(`Failed to load texture: ${textureUrl}`, err);
+    setError(true);
+    texture = null;
+  }
+  
+  return isBasicMaterial ? (
+    <meshBasicMaterial 
+      color={color} 
+      map={texture || null} 
+      emissive={emissive} 
+      emissiveIntensity={emissiveIntensity || 0}
+    />
+  ) : (
+    <meshStandardMaterial 
+      color={texture ? undefined : color} 
+      map={texture || null} 
+      emissive={emissive} 
+      emissiveIntensity={emissiveIntensity || 0}
+    />
+  );
+};
 
 interface PlanetProps {
   planet: CelestialBodyData;
@@ -36,9 +89,6 @@ const Planet = ({
   const [hovered, setHovered] = useState(false);
   const [angle, setAngle] = useState(Math.random() * Math.PI * 2);
   
-  // Load texture
-  const texture = useTexture(planet.texture || '');
-  
   // Update position based on orbit
   useFrame((_, delta) => {
     if (meshRef.current && !isPaused) {
@@ -68,6 +118,14 @@ const Planet = ({
     );
   }
   
+  // Update orbit line geometry
+  useEffect(() => {
+    if (orbitRef.current && showOrbits) {
+      const geometry = orbitRef.current.geometry;
+      geometry.setFromPoints(orbitPoints);
+    }
+  }, [orbitPoints, showOrbits]);
+  
   return (
     <>
       {/* Orbit line */}
@@ -93,11 +151,14 @@ const Planet = ({
         onPointerOut={() => setHovered(false)}
       >
         <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial 
-          map={texture} 
-          emissive={hovered || isSelected ? planet.color : undefined}
-          emissiveIntensity={hovered ? 0.5 : isSelected ? 0.3 : 0}
-        />
+        <Suspense fallback={<meshStandardMaterial color={planet.color} />}>
+          <SafeTextureMaterial 
+            textureUrl={planet.texture} 
+            color={planet.color}
+            emissive={hovered || isSelected ? planet.color : undefined}
+            emissiveIntensity={hovered ? 0.5 : isSelected ? 0.3 : 0}
+          />
+        </Suspense>
       </mesh>
       
       {/* Planet label */}
@@ -112,42 +173,10 @@ const Planet = ({
   );
 };
 
-// Custom HTML content in 3D space (not used anymore, using @react-three/drei's Html instead)
-const CustomHtml = ({ children, position }: { children: React.ReactNode, position: [number, number, number] }) => {
-  const { camera } = useThree();
-  const [pos, setPos] = useState([0, 0, 0]);
-  
-  useFrame(() => {
-    // Project 3D position to 2D screen space
-    const vector = new Vector3(position[0], position[1], position[2]);
-    vector.project(camera);
-    
-    setPos([
-      (vector.x * 0.5 + 0.5) * window.innerWidth,
-      (-vector.y * 0.5 + 0.5) * window.innerHeight,
-      0
-    ]);
-  });
-  
-  return (
-    <div style={{
-      position: 'absolute',
-      left: pos[0],
-      top: pos[1],
-      transform: 'translate(-50%, -50%)',
-      zIndex: 1000,
-      pointerEvents: 'none'
-    }}>
-      {children}
-    </div>
-  );
-};
-
 // Sun component with glow effect
 const Sun = ({ scale }: { scale: number }) => {
   const sunData = solarSystemData.find(body => body.id === 'sun')!;
   const meshRef = useRef<THREE.Mesh>(null);
-  const texture = useTexture(sunData.texture || '');
   
   useFrame((_, delta) => {
     if (meshRef.current) {
@@ -166,11 +195,15 @@ const Sun = ({ scale }: { scale: number }) => {
       {/* Sun surface */}
       <mesh ref={meshRef} scale={[scale, scale, scale]}>
         <sphereGeometry args={[1, 32, 32]} />
-        <meshBasicMaterial 
-          map={texture} 
-          emissive={sunData.color} 
-          emissiveIntensity={1}
-        />
+        <Suspense fallback={<meshBasicMaterial color={sunData.color} emissive={sunData.color} emissiveIntensity={1} />}>
+          <SafeTextureMaterial 
+            textureUrl={sunData.texture} 
+            color={sunData.color}
+            emissive={sunData.color}
+            emissiveIntensity={1}
+            isBasicMaterial={true}
+          />
+        </Suspense>
       </mesh>
     </group>
   );
@@ -194,6 +227,7 @@ const SolarSystem3D = ({
   onSelectPlanet 
 }: SolarSystem3DProps) => {
   const controlsRef = useRef<any>(null);
+  const [isCanvasReady, setIsCanvasReady] = useState(false);
   
   // Scale factors
   const baseScale = isRealisticScale ? 0.00001 : 1;
@@ -219,53 +253,74 @@ const SolarSystem3D = ({
     }
   }, [selectedPlanet, distanceScale]);
   
+  // Set canvas as ready after a short delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsCanvasReady(true);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
   return (
     <div className="w-full h-full">
-      <Canvas camera={{ position: [0, 10, 20], fov: 60 }}>
-        <ambientLight intensity={0.2} />
-        <pointLight position={[0, 0, 0]} intensity={2} color="#FDB813" />
-        
-        {/* Background stars */}
-        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-        
-        {/* Sun */}
-        <Sun scale={sunScale} />
-        
-        {/* Planets */}
-        {solarSystemData
-          .filter(body => body.type !== 'star')
-          .map((planet) => {
-            const planetScale = (planet.diameter / 12756) * 0.1 * baseScale; // Earth = 0.1
-            const orbitRadius = (planet.distanceFromSun || 0) * distanceScale * 0.01;
-            const orbitSpeed = 1 / (planet.orbitalPeriod || 365);
-            
-            return (
-              <Planet
-                key={planet.id}
-                planet={planet}
-                position={[orbitRadius, 0, 0]}
-                scale={planetScale}
-                orbitRadius={orbitRadius}
-                orbitSpeed={orbitSpeed}
-                showOrbits={showOrbits}
-                isSelected={selectedPlanet === planet.id}
-                isPaused={isPaused}
-                simulationSpeed={simulationSpeed}
-                onSelect={onSelectPlanet}
-              />
-            );
-          })}
-        
-        {/* Controls */}
-        <OrbitControls 
-          ref={controlsRef} 
-          enablePan={true}
-          enableZoom={true}
-          enableRotate={true}
-          minDistance={1}
-          maxDistance={50}
-        />
+      <Canvas camera={{ position: [0, 10, 20], fov: 60 }} onCreated={() => setIsCanvasReady(true)}>
+        <Suspense fallback={<LoadingFallback />}>
+          <ambientLight intensity={0.2} />
+          <pointLight position={[0, 0, 0]} intensity={2} color="#FDB813" />
+          
+          {/* Background stars */}
+          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+          
+          {/* Sun */}
+          <Sun scale={sunScale} />
+          
+          {/* Planets */}
+          {solarSystemData
+            .filter(body => body.type !== 'star')
+            .map((planet) => {
+              const planetScale = (planet.diameter / 12756) * 0.1 * baseScale; // Earth = 0.1
+              const orbitRadius = (planet.distanceFromSun || 0) * distanceScale * 0.01;
+              const orbitSpeed = 1 / (planet.orbitalPeriod || 365);
+              
+              return (
+                <Planet
+                  key={planet.id}
+                  planet={planet}
+                  position={[orbitRadius, 0, 0]}
+                  scale={planetScale}
+                  orbitRadius={orbitRadius}
+                  orbitSpeed={orbitSpeed}
+                  showOrbits={showOrbits}
+                  isSelected={selectedPlanet === planet.id}
+                  isPaused={isPaused}
+                  simulationSpeed={simulationSpeed}
+                  onSelect={onSelectPlanet}
+                />
+              );
+            })}
+          
+          {/* Controls */}
+          <OrbitControls 
+            ref={controlsRef} 
+            enablePan={true}
+            enableZoom={true}
+            enableRotate={true}
+            minDistance={1}
+            maxDistance={50}
+          />
+        </Suspense>
       </Canvas>
+      
+      {/* Fallback message if canvas fails to load */}
+      {!isCanvasReady && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70">
+          <div className="bg-gray-800 p-4 rounded-lg shadow-lg text-white">
+            <h3 className="text-xl font-bold mb-2">Loading Solar System...</h3>
+            <p>If nothing appears, please check your browser compatibility with WebGL.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

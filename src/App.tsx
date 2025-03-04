@@ -37,6 +37,7 @@ function App() {
   const [simulationSpeed, setSimulationSpeed] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [appError, setAppError] = useState<string | null>(null);
   
   // Simulate loading time
   useEffect(() => {
@@ -45,6 +46,17 @@ function App() {
     }, 2000);
     
     return () => clearTimeout(timer);
+  }, []);
+
+  // Error boundary
+  useEffect(() => {
+    const handleError = (event: ErrorEvent) => {
+      console.error('Application error:', event.error);
+      setAppError('An error occurred while loading the application. Please refresh the page.');
+    };
+
+    window.addEventListener('error', handleError);
+    return () => window.removeEventListener('error', handleError);
   }, []);
 
   // Handle selecting a celestial body
@@ -82,6 +94,24 @@ function App() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  // If there's an error, show error message
+  if (appError) {
+    return (
+      <div className="w-full h-screen flex flex-col items-center justify-center bg-black">
+        <div className="bg-red-900 p-6 rounded-lg max-w-md text-center">
+          <h1 className="text-2xl font-bold text-white mb-4">Something went wrong</h1>
+          <p className="text-gray-300 mb-4">{appError}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-4 py-2 bg-red-700 text-white rounded hover:bg-red-600"
+          >
+            Refresh Page
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`app-container min-h-screen ${isNightMode ? 'bg-black' : 'bg-indigo-950'}`}>
