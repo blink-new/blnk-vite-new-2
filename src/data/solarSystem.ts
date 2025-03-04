@@ -202,3 +202,8 @@ export const solarSystemData: CelestialBodyData[] = [
     ]
   }
 ];
+
+// Add the missing getPlanetById function
+export const getPlanetById = (id: string): CelestialBodyData | undefined => {
+  return solarSystemData.find(planet => planet.id === id);
+};
