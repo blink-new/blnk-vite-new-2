@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Stars, useTexture } from '@react-three/drei';
+import { OrbitControls, Stars, useTexture, Html as DreiHtml } from '@react-three/drei';
 import { Vector3 } from 'three';
 import { motion } from 'framer-motion';
 import { solarSystemData } from '../data/solarSystem';
@@ -102,18 +102,18 @@ const Planet = ({
       
       {/* Planet label */}
       {(hovered || isSelected) && (
-        <Html position={[meshRef.current?.position.x || 0, (meshRef.current?.position.y || 0) + scale * 1.5, meshRef.current?.position.z || 0]}>
+        <DreiHtml position={[meshRef.current?.position.x || 0, (meshRef.current?.position.y || 0) + scale * 1.5, meshRef.current?.position.z || 0]}>
           <div className="bg-black bg-opacity-70 text-white px-2 py-1 rounded text-sm whitespace-nowrap">
             {planet.name}
           </div>
-        </Html>
+        </DreiHtml>
       )}
     </>
   );
 };
 
-// HTML content in 3D space
-const Html = ({ children, position }: { children: React.ReactNode, position: [number, number, number] }) => {
+// Custom HTML content in 3D space (not used anymore, using @react-three/drei's Html instead)
+const CustomHtml = ({ children, position }: { children: React.ReactNode, position: [number, number, number] }) => {
   const { camera } = useThree();
   const [pos, setPos] = useState([0, 0, 0]);
   
