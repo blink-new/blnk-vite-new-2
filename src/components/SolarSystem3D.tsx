@@ -33,26 +33,35 @@ const SafeTextureMaterial = ({
 }) => {
   const [error, setError] = useState(false);
   
-  let texture;
-  try {
-    texture = textureUrl && !error ? useTexture(textureUrl) : null;
-  } catch (err) {
-    console.warn(`Failed to load texture: ${textureUrl}`, err);
-    setError(true);
-    texture = null;
+  // Use a try-catch block with useTexture
+  let texture = null;
+  if (textureUrl && !error) {
+    try {
+      // Use a more reliable way to load textures
+      const textures = useTexture({ map: textureUrl }, (errors) => {
+        if (errors && Object.keys(errors).length > 0) {
+          console.warn(`Failed to load texture: ${textureUrl}`, errors);
+          setError(true);
+        }
+      });
+      texture = textures.map;
+    } catch (err) {
+      console.warn(`Error in texture loading: ${textureUrl}`, err);
+      setError(true);
+    }
   }
   
   return isBasicMaterial ? (
     <meshBasicMaterial 
       color={color} 
-      map={texture || null} 
+      map={texture} 
       emissive={emissive} 
       emissiveIntensity={emissiveIntensity || 0}
     />
   ) : (
     <meshStandardMaterial 
       color={texture ? undefined : color} 
-      map={texture || null} 
+      map={texture} 
       emissive={emissive} 
       emissiveIntensity={emissiveIntensity || 0}
     />

@@ -9,7 +9,7 @@ export const solarSystemData: CelestialBodyData[] = [
     mass: 1.989e30,
     temperature: 5500,
     color: '#FDB813',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/sun.jpg',
+    texture: '/textures/planets/sun.jpg',
     description: 'The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core. The Sun radiates energy mainly as light, ultraviolet, and infrared radiation, and is the most important source of energy for life on Earth.',
     funFacts: [
       'The Sun accounts for 99.86% of the mass in the solar system.',
@@ -34,7 +34,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 0,
     rings: false,
     color: '#A9A9A9',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/mercury.jpg',
+    texture: '/textures/planets/mercury.jpg',
     description: 'Mercury is the smallest and innermost planet in the Solar System. It has a rocky body like Earth and is the closest planet to the Sun. Mercury has no atmosphere to retain heat, resulting in extreme temperature variations, from scorching hot during the day to freezing cold at night.',
     funFacts: [
       'Mercury has no atmosphere, which means there is no wind or weather.',
@@ -59,7 +59,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 0,
     rings: false,
     color: '#E6E6FA',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/venus.jpg',
+    texture: '/textures/planets/venus.jpg',
     description: 'Venus is the second planet from the Sun and is Earth\'s closest planetary neighbor. It\'s one of the four inner, terrestrial planets, and it\'s often called Earth\'s twin because it\'s similar in size and density. Venus has a thick, toxic atmosphere filled with carbon dioxide and clouds of sulfuric acid.',
     funFacts: [
       'Venus rotates backward compared to other planets.',
@@ -84,7 +84,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 1,
     rings: false,
     color: '#0077FF',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth.jpg',
+    texture: '/textures/planets/earth.jpg',
     description: 'Earth is the third planet from the Sun and the only astronomical object known to harbor life. About 71% of Earth\'s surface is covered with water. Earth\'s atmosphere consists of 78% nitrogen, 21% oxygen, and 1% other gases which is perfect for supporting life.',
     funFacts: [
       'Earth is the only planet not named after a god.',
@@ -109,7 +109,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 2,
     rings: false,
     color: '#FF5733',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/mars.jpg',
+    texture: '/textures/planets/mars.jpg',
     description: 'Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System, being larger than only Mercury. Mars is often called the "Red Planet" because of its reddish appearance, which is due to iron oxide (rust) on its surface.',
     funFacts: [
       'Mars has the largest dust storms in the solar system.',
@@ -134,7 +134,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 79,
     rings: true,
     color: '#F5DEB3',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/jupiter.jpg',
+    texture: '/textures/planets/jupiter.jpg',
     description: 'Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, but slightly less than one-thousandth the mass of the Sun.',
     funFacts: [
       'Jupiter has the shortest day of all the planets, rotating once every 9.8 hours.',
@@ -159,7 +159,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 82,
     rings: true,
     color: '#F4A460',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/saturn.jpg',
+    texture: '/textures/planets/saturn.jpg',
     description: 'Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine times that of Earth. Saturn is known for its prominent ring system, which is composed mainly of ice particles, with a smaller amount of rocky debris and dust.',
     funFacts: [
       'Saturn\'s rings are made up of billions of ice particles, ranging in size from tiny dust grains to large boulders.',
@@ -184,7 +184,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 27,
     rings: true,
     color: '#ADD8E6',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/uranus.jpg',
+    texture: '/textures/planets/uranus.jpg',
     description: 'Uranus is the seventh planet from the Sun. It has the third-largest planetary radius and fourth-largest planetary mass in the Solar System. Uranus is similar in composition to Neptune, and both have bulk chemical compositions which differ from that of the larger gas giants Jupiter and Saturn.',
     funFacts: [
       'Uranus rotates on its side, with its axis pointing nearly towards the Sun.',
@@ -209,7 +209,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 14,
     rings: true,
     color: '#4169E1',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/neptune.jpg',
+    texture: '/textures/planets/neptune.jpg',
     description: 'Neptune is the eighth and farthest-known Solar planet from the Sun. In the Solar System, it is the fourth-largest planet by diameter, the third-most-massive planet, and the densest giant planet. Neptune is 17 times the mass of Earth, slightly more massive than its near-twin Uranus.',
     funFacts: [
       'Neptune has the strongest winds in the Solar System, reaching speeds of 2,100 km/h (1,300 mph).',
@@ -234,7 +234,7 @@ export const solarSystemData: CelestialBodyData[] = [
     moons: 5,
     rings: false,
     color: '#DEB887',
-    texture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/pluto.jpg',
+    texture: '/textures/planets/pluto.jpg',
     description: 'Pluto is a dwarf planet in the Kuiper belt, a ring of bodies beyond the orbit of Neptune. It was the first and the largest Kuiper belt object to be discovered. After Pluto was discovered in 1930, it was declared to be the ninth planet from the Sun. Beginning in the 1990s, its status as a planet was questioned, and in 2006 it was reclassified as a dwarf planet.',
     funFacts: [
       'Pluto was considered the ninth planet until 2006 when it was reclassified as a dwarf planet.',

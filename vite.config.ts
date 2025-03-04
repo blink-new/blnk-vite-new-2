@@ -18,8 +18,11 @@ export default defineConfig({
       usePolling: true,
     },
     hmr: {
-      clientPort: 3000,
-      host: 'localhost'
+      // Fix for WebSocket connection issues
+      protocol: 'ws',
+      host: 'localhost',
+      port: 3000,
+      clientPort: 3000
     },
     allowedHosts: ['.blink.new']
   },
